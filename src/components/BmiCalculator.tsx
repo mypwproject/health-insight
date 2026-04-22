@@ -24,7 +24,7 @@ function BmiGauge({ bmi }: { bmi: number }) {
 }
 
 export default function BmiCalculator() {
-  const [lang, setLang] = useState<Lang>("ar");
+  const [lang, setLang] = useState<Lang>("en");
   const [dark, setDark] = useState(true);
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
