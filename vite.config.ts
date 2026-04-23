@@ -6,16 +6,36 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig({
-  vite: {
-    build: {
-      rollupOptions: {
-        output: {
-          entryFileNames: "assets/[name]-[hash].js",
-          chunkFileNames: "assets/[name]-[hash].js",
-          assetFileNames: "assets/[name]-[hash][extname]",
+// Check if we're building for Vercel (static deployment)
+const isVercelBuild = process.env.VERCEL === "1" || process.env.VERCEL_ENV !== undefined;
+
+export default defineConfig(
+  isVercelBuild
+    ? {
+        vite: {
+          build: {
+            rollupOptions: {
+              output: {
+                entryFileNames: "assets/[name]-[hash].js",
+                chunkFileNames: "assets/[name]-[hash].js",
+                assetFileNames: "assets/[name]-[hash][extname]",
+              },
+            },
+          },
         },
-      },
-    },
-  },
-});
+      }
+    : {
+        vite: {
+          build: {
+            rollupOptions: {
+              output: {
+                entryFileNames: "assets/[name]-[hash].js",
+                chunkFileNames: "assets/[name]-[hash].js",
+                assetFileNames: "assets/[name]-[hash][extname]",
+              },
+            },
+          },
+        },
+      }
+);
+
